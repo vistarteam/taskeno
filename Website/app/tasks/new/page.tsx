@@ -42,7 +42,11 @@ export default function NewTaskPage() {
     const [error, setError] = useState('');
 
     if (sessionLoading) {
-        return <div className="py-12 text-center text-sm text-muted-foreground">در حال بررسی حساب…</div>;
+        return (
+            <div className="py-12 text-center text-sm text-muted-foreground">
+                در حال بررسی حساب…
+            </div>
+        );
     }
 
     if (!user) {
@@ -50,8 +54,11 @@ export default function NewTaskPage() {
             <div className="mx-auto max-w-xl">
                 <Alert tone="warning" title="ورود لازم است">
                     برای ثبت تسک ابتدا وارد حساب کاربری خود شوید.
+
                     <div className="mt-3">
-                        <Button onClick={() => router.push('/login')}>ورود به حساب</Button>
+                        <Button onClick={() => router.push('/login')}>
+                            ورود به حساب
+                        </Button>
                     </div>
                 </Alert>
             </div>
@@ -60,6 +67,7 @@ export default function NewTaskPage() {
 
     const submit = async (event: FormEvent) => {
         event.preventDefault();
+
         setError('');
         setBusy(true);
 
@@ -70,9 +78,7 @@ export default function NewTaskPage() {
                     String('۰۱۲۳۴۵۶۷۸۹'.indexOf(digit)),
                 );
 
-            const result = await api.post<{
-                id: string;
-            }>('/tasks', {
+            const result = await api.post<{ id: string }>('/tasks', {
                 title: title.trim(),
                 description: description.trim(),
                 budgetRial: String(BigInt(normalizedBudget) * 10n),
@@ -81,7 +87,7 @@ export default function NewTaskPage() {
                 categoryId: categoryId || null,
             });
 
-            router.push(/tasks/${result.id});
+            router.push(`/tasks/${result.id}`);
             router.refresh();
         } catch (cause) {
             setError(
@@ -110,6 +116,7 @@ export default function NewTaskPage() {
 
                 <div>
                     <h1 className="text-xl font-bold">ثبت تسک جدید</h1>
+
                     <p className="mt-1 text-sm text-muted-foreground">
                         کار کوچک و مشخصی که می‌خواهید یک نفر سریع انجام دهد.
                     </p>
@@ -123,7 +130,11 @@ export default function NewTaskPage() {
 
                 <CardContent>
                     <form onSubmit={submit} className="space-y-5">
-                        {error ? <Alert tone="danger">{error}</Alert> : null}
+                        {error ? (
+                            <Alert tone="danger">
+                                {error}
+                            </Alert>
+                        ) : null}
 
                         <Field label="عنوان تسک" htmlFor="task-title">
                             <Input
@@ -136,6 +147,7 @@ export default function NewTaskPage() {
                                 required
                             />
                         </Field>
+
                         <Field label="توضیحات" htmlFor="task-description">
               <textarea
                   id="task-description"
@@ -175,8 +187,10 @@ export default function NewTaskPage() {
                                         max={240}
                                         required
                                     />
+
                                     <Clock3 className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
                                 </div>
+
                                 <p className="mt-1 text-xs text-muted-foreground">
                                     بین ۱ تا ۲۴۰ دقیقه
                                 </p>
@@ -194,7 +208,9 @@ export default function NewTaskPage() {
 
                                 {parentCategories.map((parent) => (
                                     <optgroup key={parent.id} label={parent.titleFa}>
-                                        <option value={parent.id}>{parent.titleFa}</option>
+                                        <option value={parent.id}>
+                                            {parent.titleFa}
+                                        </option>
 
                                         {parent.children.map((child) => (
                                             <option key={child.id} value={child.id}>
@@ -206,11 +222,16 @@ export default function NewTaskPage() {
                             </select>
                         </Field>
 
-                        <Field label="مدت فعال بودن تسک" htmlFor="task-expiry">
+                        <Field
+                            label="مدت فعال بودن تسک"
+                            htmlFor="task-expiry"
+                        >
                             <select
                                 id="task-expiry"
                                 value={expiresInMinutes}
-                                onChange={(event) => setExpiresInMinutes(event.target.value)}
+                                onChange={(event) =>
+                                    setExpiresInMinutes(event.target.value)
+                                }
                                 className="flex h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none focus:border-ring focus:ring-2 focus:ring-ring/30"
                             >
                                 <option value="60">۱ ساعت</option>
@@ -222,7 +243,11 @@ export default function NewTaskPage() {
                             </select>
                         </Field>
 
-                        <Button type="submit" className="w-full" disabled={busy}>
+                        <Button
+                            type="submit"
+                            className="w-full"
+                            disabled={busy}
+                        >
                             <Send />
                             {busy ? 'در حال ثبت…' : 'ثبت تسک'}
                         </Button>

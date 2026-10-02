@@ -2,9 +2,9 @@
 
 import Link from 'next/link';
 import { Clock3, Plus, RefreshCw, Search } from 'lucide-react';
+
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 import { EmptyState } from '@/components/empty-state';
 import { PageLoader } from '@/components/ui/skeleton';
 import { useResource } from '@/lib/hooks';
@@ -17,7 +17,14 @@ type TaskItem = {
     budget: string;
     budgetToman: string;
     estimatedMinutes: number;
-    status: 'open' | 'taken' | 'in_progress' | 'delivered' | 'completed' | 'cancelled' | 'expired';
+    status:
+        | 'open'
+        | 'taken'
+        | 'in_progress'
+        | 'delivered'
+        | 'completed'
+        | 'cancelled'
+        | 'expired';
     expiresAt: string;
     createdAt: string;
     requester?: {
@@ -49,13 +56,14 @@ export default function TasksPage() {
             <header className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                 <div className="space-y-2">
                     <h1 className="text-xl font-bold">تسک‌های سریع</h1>
+
                     <p className="text-sm text-muted-foreground">
                         کارهای کوچک را پیدا کنید، سریع قبول کنید و انجام دهید.
                     </p>
                 </div>
 
                 <Button asChild>
-                    <Link href="/tasks/new">
+                    <Link href="/tasks">
                         <Plus />
                         ثبت تسک
                     </Link>
@@ -66,7 +74,11 @@ export default function TasksPage() {
                 <Card>
                     <CardContent className="flex flex-col items-center gap-3 py-10 text-center">
                         <p className="font-medium">دریافت تسک‌ها ناموفق بود.</p>
-                        <p className="text-sm text-muted-foreground">{error.message}</p>
+
+                        <p className="text-sm text-muted-foreground">
+                            {error.message}
+                        </p>
+
                         <Button variant="outline" onClick={() => reload()}>
                             <RefreshCw />
                             تلاش دوباره
@@ -119,11 +131,20 @@ export default function TasksPage() {
 
                                 <div className="mt-auto grid grid-cols-2 gap-2 rounded-xl bg-muted/50 p-3">
                                     <div>
-                                        <p className="text-xs text-muted-foreground">بودجه</p>
-                                        <p className="mt-1 font-bold">{task.budgetToman}</p>
+                                        <p className="text-xs text-muted-foreground">
+                                            بودجه
+                                        </p>
+
+                                        <p className="mt-1 font-bold">
+                                            {task.budgetToman}
+                                        </p>
                                     </div>
+
                                     <div>
-                                        <p className="text-xs text-muted-foreground">زمان تقریبی</p>
+                                        <p className="text-xs text-muted-foreground">
+                                            زمان تقریبی
+                                        </p>
+
                                         <p className="mt-1 flex items-center gap-1 font-bold">
                                             <Clock3 className="size-4" />
                                             {faNumber(task.estimatedMinutes)} دقیقه
@@ -137,7 +158,9 @@ export default function TasksPage() {
                   </span>
 
                                     <Button asChild size="sm">
-                                        <Link href={/tasks/${task.id}}>مشاهده و قبول</Link>
+                                        <Link href={`/tasks/${task.id}`}>
+                                            مشاهده و قبول
+                                        </Link>
                                     </Button>
                                 </div>
                             </CardContent>
