@@ -12,6 +12,7 @@ import { OrdersModule } from './modules/orders/orders.module';
 import { PaymentsModule } from './modules/payments/payments.module';
 import { ReviewsModule } from './modules/reviews/reviews.service';
 import { SettingsModule } from './modules/settings/settings.module';
+import { TasksModule } from './modules/tasks/tasks.module';
 import { WalletModule } from './modules/wallet/wallet.module';
 
 @Module({
@@ -23,13 +24,13 @@ import { WalletModule } from './modules/wallet/wallet.module';
     CatalogModule,
     WalletModule,
     OrdersModule,
+    TasksModule,
     PaymentsModule,
     ReviewsModule,
     AdminModule,
   ],
   controllers: [HealthController],
   providers: [
-    // Registration order matters: the session guard must run before role checks.
     { provide: APP_GUARD, useClass: SessionAuthGuard },
     { provide: APP_GUARD, useClass: RolesGuard },
     { provide: APP_FILTER, useClass: AllExceptionsFilter },

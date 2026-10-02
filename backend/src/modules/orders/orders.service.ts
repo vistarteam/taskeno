@@ -87,7 +87,7 @@ export class OrdersService {
           buyerId,
           providerId: service.providerId,
           currency: service.currency,
-          subtotal: service.price,
+          subtotal: service.price + commission.amount,
           commissionAmount: commission.amount,
           commissionSnapshot: commission.snapshot as unknown as Record<string, unknown>,
           total: service.price,
