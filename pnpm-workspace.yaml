@@ -1,0 +1,21 @@
+packages:
+  - "backend"
+  - "Website"
+  - "packages/*"
+
+# pnpm blocks dependency build scripts by default. These are the only packages
+# whose build step we trust: they fetch/link a platform-native binary that the
+# code cannot run without.
+allowBuilds:
+  esbuild: true
+  sharp: true
+  "@node-rs/argon2": true
+  "@electric-sql/pglite": true
+
+fetchRetries: 8
+
+fetchRetryMaxtimeout: 300000
+
+fetchTimeout: 900000
+
+networkConcurrency: 4

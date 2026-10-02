@@ -1,0 +1,145 @@
+@import "tailwindcss";
+
+/* Dark mode is toggled by adding/removing the `.dark` class on <html>. */
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --radius: 0.75rem;
+
+  --background: oklch(0.985 0.004 275);
+  --foreground: oklch(0.24 0.02 275);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.24 0.02 275);
+
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.24 0.02 275);
+
+  /* Brand: a confident indigo that reads well on both themes. */
+  --primary: oklch(0.5 0.215 277);
+  --primary-foreground: oklch(0.98 0.01 277);
+
+  --secondary: oklch(0.955 0.01 275);
+  --secondary-foreground: oklch(0.3 0.03 275);
+
+  --muted: oklch(0.955 0.008 275);
+  --muted-foreground: oklch(0.5 0.02 275);
+
+  --accent: oklch(0.95 0.025 277);
+  --accent-foreground: oklch(0.35 0.11 277);
+
+  --destructive: oklch(0.56 0.215 27);
+  --destructive-foreground: oklch(0.98 0 0);
+
+  --success: oklch(0.6 0.14 155);
+  --warning: oklch(0.76 0.155 78);
+
+  --border: oklch(0.915 0.008 275);
+  --input: oklch(0.915 0.008 275);
+  --ring: oklch(0.5 0.215 277);
+}
+
+.dark {
+  --background: oklch(0.17 0.015 275);
+  --foreground: oklch(0.96 0.005 275);
+
+  --card: oklch(0.215 0.018 275);
+  --card-foreground: oklch(0.96 0.005 275);
+
+  --popover: oklch(0.215 0.018 275);
+  --popover-foreground: oklch(0.96 0.005 275);
+
+  --primary: oklch(0.68 0.17 277);
+  --primary-foreground: oklch(0.17 0.05 277);
+
+  --secondary: oklch(0.27 0.02 275);
+  --secondary-foreground: oklch(0.96 0.005 275);
+
+  --muted: oklch(0.26 0.02 275);
+  --muted-foreground: oklch(0.72 0.02 275);
+
+  --accent: oklch(0.29 0.05 277);
+  --accent-foreground: oklch(0.9 0.03 277);
+
+  --destructive: oklch(0.66 0.19 27);
+  --destructive-foreground: oklch(0.98 0 0);
+
+  --success: oklch(0.68 0.13 155);
+  --warning: oklch(0.8 0.14 85);
+
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.68 0.17 277);
+}
+
+@theme inline {
+  --font-sans: "Vazirmatn", "Segoe UI", Tahoma, "Iranian Sans", system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-feature-settings: "ss01"; /* Persian digits in fonts that need it */
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Money and codes must never be re-flowed into a misleading value. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer utilities {
+  /* Screen-reader-only but focusable (used by the skip link). */
+  .sr-only-focusable:not(:focus):not(:focus-within) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+}
